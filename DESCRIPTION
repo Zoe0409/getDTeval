@@ -8,8 +8,8 @@ Authors@R: c(
     person("Zichen", "Huang", , "zh2380@columbia.edu", c("ctb","cre"))
     )
 Depends: R (>= 3.1.0)
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: getDTeval is useful in translateing get() and eval() statements more efficiently for 
+    improved runtime performance.
 License: GPL-3 
 Encoding: UTF-8
 LazyData: true
