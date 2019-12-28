@@ -68,9 +68,8 @@ In data.table's cacluations, eval() within a .() calculation in the j step is no
 
 However, using getDTeval allows this to work:
 
-```{r getDTeval_example1}
 getDTeval(the.statement = "snack.dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
-```
+
 
 **3). Expanding on the use of eval() in dplyr code.** 
 
