@@ -53,12 +53,10 @@ There are some major applications to the getDTeval package:
 
 **1). Combining programmatic coding designs with data.table's efficiency. Better utilizing get() and eval() without the trade-offs in performance.**
 
-This is a benchmarking experiment on data with about 1 million rows. The result shows the reduction in running time using getDTeval over the original statement.
+This is a benchmarking experiment on the snack.dat from formulaic package. The result shows the reduction in running time using getDTeval over the original statement.
 
 ```{r example1}
-dat1 <- dat[sample(x = 1:.N, size = 10^6, replace = TRUE)]
-
-the.statement <- "dat1[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), region.name)]"
+the.statement <- "dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), region.name)]"
 
 benchmark.getDTeval(the.statement = the.statement)
 ```
