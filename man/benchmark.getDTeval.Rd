@@ -35,7 +35,7 @@ awareness.name = "Awareness"
 gender.name = "Gender"
 region.name = "Region"
 
-dat <- formulaic::snack.dat[sample(x = 1:.N, size = 10^6, replace = TRUE)]
+dat = formulaic::snack.dat
 the.statement <- "dat[get(age.name) > 65,
 .(mean_awareness = mean(get(awareness.name))),
 keyby = c(eval(gender.name), eval(region.name))]"
