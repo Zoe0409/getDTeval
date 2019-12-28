@@ -5,7 +5,7 @@
 
 ## Overview  ##
 
-Using the get() and eval() functions allows for more programmatic coding designs that enable greater flexibility and more dynamic computations. However, in data.table statements, get() and eval() reduce the efficiency of the method by performing work prior to data.table's optimized computations. **getDTeval** is useful in translateing get() and eval() statements more efficiently for improved runtime performance..
+Using the get() and eval() functions allows for more programmatic coding designs that enable greater flexibility and more dynamic computations. However, in data.table statements, get() and eval() reduce the efficiency of the method by performing work prior to data.table's optimized computations. **getDTeval** is useful in translateing get() and eval() statements more efficiently for improved runtime performance.
 
 ## Install the current release from CRAN: ##
 `install.packages('getDTeval')`
