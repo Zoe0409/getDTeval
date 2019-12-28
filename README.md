@@ -1,7 +1,6 @@
 # getDTeval
 
 [![Travis build status](https://travis-ci.org/Zoe0409/getDTeval.svg?branch=master)](https://travis-ci.org/Zoe0409/getDTeval)
-[![Codecov test coverage](https://codecov.io/gh/Zoe0409/getDTeval/branch/master/graph/badge.svg)](https://codecov.io/gh/Zoe0409/getDTeval?branch=master)
 
 ## Overview  ##
 
