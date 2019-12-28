@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r library, echo=FALSE}
+```{r library, include=FALSE}
 library(formulaic)
 library(data.table)
 library(stats)
