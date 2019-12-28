@@ -16,6 +16,8 @@ getDTeval(
 )
 }
 \arguments{
+\item{the.statement}{a character value expressing a data.table calculation, such as \code{dt[Age < 50, .(mean(Income)), by = "Region"]}.  When the.statement includes variables that are called by reference to a naming constant using get() or eval(), then these statements are translated into the names of the variables for substantial improvements in speed.}
+
 \item{return.as}{a character value stating what should be returned.  When return.as = "result", the calculation is evaluated.  When return.as = "code", then the translated coding statement is provided.  When return.as = "all", then a list is returned that includes both the result and the code.}
 
 \item{eval.type}{a character value stating whether the coding statement should be evaluated in its current form (eval.type = "as.is") or have its called to get() and eval() translated (eval.type = "optimized", the default setting).}

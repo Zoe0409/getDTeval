@@ -1,6 +1,5 @@
 Package: getDTeval
-Type: Package
-Title: Translates calls to get() or eval() into an optimized coding statement.
+Title: Translates calls to get() or eval() into an optimized coding statement
 Version: 0.0.1
 Authors@R: c(
     person("David", "Shilane", , "david.shilane@columbia.edu", c("aut")),
