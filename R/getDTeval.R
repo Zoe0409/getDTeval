@@ -8,17 +8,6 @@
 #' @param envir The environment in which the calculation takes place, with the global environment .GlobalEnv set as the default.
 #' @param ... additional arguments to be passed.
 #'
-#' @import formulaic
-#'
-#' @export
-#' @examples
-#'
-#' mean.age.name = "Mean Age"
-#' age.name = "Age"
-#'
-#' dat = formulaic::snack.dat
-#' getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
-#'
 #' @source getDTeval::translate.fn.calls
 #' @export
 getDTeval <- function(the.statement, return.as = "result", eval.type = "optimized", envir = .GlobalEnv, ...){
@@ -52,3 +41,4 @@ getDTeval <- function(the.statement, return.as = "result", eval.type = "optimize
 
   return(eval(expr = parse(text = the.statement), envir = envir))
 }
+

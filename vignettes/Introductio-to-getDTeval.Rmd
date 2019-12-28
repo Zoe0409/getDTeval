@@ -55,7 +55,7 @@ There are some major applications to the getDTeval package:
 
 This is a benchmarking experiment on the snack.dat from formulaic package. The result shows the reduction in running time using getDTeval over the original statement.
 
-the.statement <- "dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), eval(region.name))]"
+``the.statement <- "dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), eval(region.name))]"``
 
 benchmark.getDTeval(the.statement = the.statement)
 
@@ -66,7 +66,7 @@ In data.table's cacluations, eval() within a .() calculation in the j step is no
 
 However, using getDTeval allows this to work:
 
-getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
+``getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")``
 
 
 **3). Expanding on the use of eval() in dplyr code.** 
@@ -76,4 +76,4 @@ eval() steps in dplyr code is not allowed. For example, if we try to run `snack.
 However, using getDTeval allows this to work:
 
 
-getDTeval(the.statement = "dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))")
+``getDTeval(the.statement = "dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))")``

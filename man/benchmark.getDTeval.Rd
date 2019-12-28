@@ -7,13 +7,8 @@
 getDTeval::getDTeval
 }
 \usage{
-benchmark.getDTeval(
-  the.statement,
-  times = 30,
-  seed = 47,
-  envir = .GlobalEnv,
-  ...
-)
+benchmark.getDTeval(the.statement, times = 30, seed = 47,
+  envir = .GlobalEnv, ...)
 }
 \arguments{
 \item{the.statement}{a character value expressing a data.table calculation, such as \code{dt[Age < 50, .(mean(Income)), by = "Region"]}. When the.statement includes variables that are called by reference to a naming constant using get() or eval(), then these statements are translated into the names of the variables for substantial improvements in speed.}
@@ -28,17 +23,4 @@ benchmark.getDTeval(
 }
 \description{
 Performs a benchmarking experiment for data.table coding statements that use get() or eval() for programmatic designs.  The a) original statement is compared to b) passing the original statement through getDTeval and also to c) an optimized coding statement.  The results can demonstrate the overall improvement of using the coding translations offered by getDTeval().
-}
-\examples{
-age.name = "Age"
-awareness.name = "Awareness"
-gender.name = "Gender"
-region.name = "Region"
-
-dat = formulaic::snack.dat
-the.statement <- "dat[get(age.name) > 65,
-.(mean_awareness = mean(get(awareness.name))),
-keyby = c(eval(gender.name), eval(region.name))]"
-benchmark.getDTeval(the.statement = the.statement)
-
 }
