@@ -56,7 +56,7 @@ There are some major applications to the getDTeval package:
 This is a benchmarking experiment on the snack.dat from formulaic package. The result shows the reduction in running time using getDTeval over the original statement.
 
 ```{r example1}
-the.statement <- "dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), region.name)]"
+the.statement <- "dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), eval(region.name))]"
 
 benchmark.getDTeval(the.statement = the.statement)
 ```
