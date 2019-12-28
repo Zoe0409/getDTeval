@@ -1,0 +1,84 @@
+---
+title: "Introductio-to-getDTeval"
+output: rmarkdown::html_vignette
+author: 'Authors: David Shilane, Caffrey Lee, Zoe Huang, Anderson Nelson'
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{Introduction to getDTeval}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r library, echo=FALSE}
+library(formulaic)
+library(data.table)
+library(stats)
+library(microbenchmark)
+library(dplyr)
+library(knitr)
+library(getDTeval)
+data("snack.dat", package = "formulaic")
+```
+
+```{r constant,echo=FALSE}
+mean.age.name = "Mean Age"
+age.name = "Age"
+awareness.name = "Awareness"
+gender.name = "Gender"
+region.name = "Region"
+```
+
+# Introduction
+
+Using the get() and eval() functions allows for more programmatic coding designs that enable greater flexibility and more dynamic computations. However, in data.table statements, get() and eval() reduce the efficiency of the method by performing work prior to data.table's optimized computations. **getDTeval** is useful in translateing get() and eval() statements more efficiently for improved runtime performance.
+
+# Functions
+
+**getDTeval** package has 2 main functions. The main purpose of developing the package is to translates get() and eval() statements more efficiently, which allows a user to both incorporate programmatic designs and while utilizing data.table's efficient processing routines.
+
+ - **benchmark.getDTeval** performs a benchmarking experiment for data.table coding statements that use get() or eval() for programmatic designs.  The a) original statement is compared to b) passing the original statement through getDTeval and also to c) an optimized coding statement.  The results can demonstrate the overall improvement of using the coding translations offered by getDTeval().
+
+ - **getDTeval** offers a method of fully translating coding statements into an optimized coding statement.
+
+# Applications and benefits
+
+There are some major applications to the getDTeval package:
+
+**1). Combining programmatic coding designs with data.table's efficiency. Better utilizing get() and eval() without the trade-offs in performance.**
+
+This is a benchmarking experiment on data with about 1 million rows. The result shows the reduction in running time using getDTeval over the original statement.
+
+```{r benchmark.getDTeval_example1}
+dat <- snack.dat[sample(x = 1:.N, size = 10^6, replace = T)]
+
+the.statement <- "dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), region.name)]"
+
+benchmark.getDTeval(the.statement = the.statement)
+```
+
+**2). Expanding on the use of eval() in data.table's calculations.** 
+
+In data.table's cacluations, eval() within a .() calculation in the j step is not allowed. For example, if we try to run `snack.dat[, .(eval(mean.age.name) = mean(get(age.name)))]`, then the error message would be `Error: unexpected '=' in "snack.dat[, .(eval(mean.age.name) ="`
+
+However, using getDTeval allows this to work:
+
+```{r getDTeval_example1}
+getDTeval(the.statement = "snack.dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
+```
+
+**3). Expanding on the use of eval() in dplyr code.** 
+
+eval() steps in dplyr code is not allowed. For example, if we try to run `snack.dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))`, then the error message would be `Error: unexpected '=' in "snack.dat %>% summarize(eval(mean.age.name) ="`
+
+However, using getDTeval allows this to work:
+
+```{r getDTeval_example2}
+getDTeval(the.statement = "snack.dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))")
+```

@@ -11,7 +11,6 @@
 #' @source getDTeval::getDTeval
 #' @import data.table
 #' @import microbenchmark
-#' @import stats
 #'
 #' @export
 benchmark.getDTeval <- function(the.statement, times = 30, seed = 47, envir = .GlobalEnv, ...){
@@ -39,7 +38,7 @@ benchmark.getDTeval <- function(the.statement, times = 30, seed = 47, envir = .G
 
 
   res <- rbindlist(l = list(times.translated, times.dt, times.getDTeval), fill = TRUE)
-  res[, seconds := stats::time / (10^9)]
+  res[, seconds := times / (10^9)]
 
   the.tab <- res[, .(metric = names(summary(seconds)), seconds = summary(seconds)), keyby = "category"]
 

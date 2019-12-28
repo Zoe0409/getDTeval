@@ -24,4 +24,4 @@ Imports:
     data.table,
     formulaic,
     microbenchmark,
-    stats
+    dplyr
