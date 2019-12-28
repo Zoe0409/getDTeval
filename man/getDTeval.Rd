@@ -29,3 +29,12 @@ getDTeval(
 \description{
 getDTeval offers a method of translating coding statements into more efficient versions for improved runtime performance. Using the get() and eval() functions allows for more programmatic coding designs that enable greater flexibility and more dynamic computations. However, in data.table statements, get() and eval() reduce the efficiency of the method by performing work prior to data.table's optimized computations. The getDTeval() function translates get() and eval() statements more efficiently. This allows a user to both incorporate programmatic designs and while utilizing data.table's efficient processing routines.
 }
+\examples{
+
+mean.age.name = "Mean Age"
+age.name = "Age"
+
+dat = formulaic::snack.dat
+getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
+
+}

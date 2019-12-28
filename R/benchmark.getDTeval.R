@@ -8,6 +8,21 @@
 #' @param envir The environment in which the calculation takes place, with the global environment .GlobalEnv set as the default.
 #' @param ... additional arguments to be passed.
 #'
+#' @import formulaic
+#'
+#' @export
+#' @examples
+#' age.name = "Age"
+#' awareness.name = "Awareness"
+#' gender.name = "Gender"
+#' region.name = "Region"
+#'
+#' dat <- formulaic::snack.dat[sample(x = 1:.N, size = 10^6, replace = TRUE)]
+#' the.statement <- "dat[get(age.name) > 65,
+#' .(mean_awareness = mean(get(awareness.name))),
+#' keyby = c(eval(gender.name), region.name)]"
+#' benchmark.getDTeval(the.statement = the.statement)
+#'
 #' @source getDTeval::getDTeval
 #' @import data.table
 #' @import microbenchmark

@@ -24,7 +24,7 @@ library(microbenchmark)
 library(dplyr)
 library(knitr)
 library(getDTeval)
-data("snack.dat", package = "formulaic")
+dat = formulaic::snack.dat
 ```
 
 ```{r constant,echo=FALSE}
@@ -55,12 +55,13 @@ There are some major applications to the getDTeval package:
 
 This is a benchmarking experiment on data with about 1 million rows. The result shows the reduction in running time using getDTeval over the original statement.
 
-dat <- snack.dat[sample(x = 1:.N, size = 10^6, replace = T)]
+```{r example1}
+dat1 <- dat[sample(x = 1:.N, size = 10^6, replace = T)]
 
-the.statement <- "dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), region.name)]"
+the.statement <- "dat1[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), region.name)]"
 
 benchmark.getDTeval(the.statement = the.statement)
-
+```
 
 **2). Expanding on the use of eval() in data.table's calculations.** 
 
@@ -68,8 +69,9 @@ In data.table's cacluations, eval() within a .() calculation in the j step is no
 
 However, using getDTeval allows this to work:
 
-getDTeval(the.statement = "snack.dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
-
+```{r example2}
+getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
+```
 
 **3). Expanding on the use of eval() in dplyr code.** 
 
@@ -77,6 +79,6 @@ eval() steps in dplyr code is not allowed. For example, if we try to run `snack.
 
 However, using getDTeval allows this to work:
 
-```{r getDTeval_example2}
-getDTeval(the.statement = "snack.dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))")
+```{r example3}
+getDTeval(the.statement = "dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))")
 ```
