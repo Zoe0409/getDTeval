@@ -10,35 +10,64 @@
 #'
 #' @source getDTeval::translate.fn.calls
 #' @export
-getDTeval <- function(the.statement, return.as = "result", eval.type = "optimized", envir = .GlobalEnv, ...){
-
-  if(!is.character(the.statement) & !is.expression(x = the.statement)){
-    return("Error:  the.statement must be a character or expression.")
-  }
-
-  the.statement <- as.character(the.statement)
-
-  if(eval.type != "as.is"){
-    pattern.get <- "get("
-    pattern.eval <- "eval("
-
-    num.get.calls <- length(grep(pattern = pattern.get, x = the.statement, fixed = TRUE))
-    num.eval.calls <- length(grep(pattern = pattern.eval, x = the.statement, fixed = TRUE))
-
-    if(num.get.calls > 0 | num.eval.calls > 0){
-      the.statement <- translate.fn.calls(the.statement = the.statement, function.name = pattern.get, envir = envir, ...)
-
-      the.statement <- translate.fn.calls(the.statement = the.statement, function.name = pattern.eval, envir = envir, ...)
+getDTeval <-
+  function(the.statement,
+           return.as = "result",
+           eval.type = "optimized",
+           envir = .GlobalEnv,
+           ...) {
+    if (!is.character(the.statement) &
+        !is.expression(x = the.statement)) {
+      return("Error:  the.statement must be a character or expression.")
     }
-  }
 
-  if(return.as == "code"){
-    return(the.statement)
-  }
-  if(return.as == "all"){
-    return(list(result = eval(expr = parse(text = the.statement), envir = envir), code = the.statement))
-  }
+    the.statement <- as.character(the.statement)
 
-  return(eval(expr = parse(text = the.statement), envir = envir))
-}
+    if (eval.type != "as.is") {
+      pattern.get <- "get("
+      pattern.eval <- "eval("
 
+      num.get.calls <-
+        length(grep(
+          pattern = pattern.get,
+          x = the.statement,
+          fixed = TRUE
+        ))
+      num.eval.calls <-
+        length(grep(
+          pattern = pattern.eval,
+          x = the.statement,
+          fixed = TRUE
+        ))
+
+      if (num.get.calls > 0 | num.eval.calls > 0) {
+        the.statement <-
+          translate.fn.calls(
+            the.statement = the.statement,
+            function.name = pattern.get,
+            envir = envir,
+            ...
+          )
+
+        the.statement <-
+          translate.fn.calls(
+            the.statement = the.statement,
+            function.name = pattern.eval,
+            envir = envir,
+            ...
+          )
+      }
+    }
+
+    if (return.as == "code") {
+      return(the.statement)
+    }
+    if (return.as == "all") {
+      return(list(
+        result = eval(expr = parse(text = the.statement), envir = envir),
+        code = the.statement
+      ))
+    }
+
+    return(eval(expr = parse(text = the.statement), envir = envir))
+  }

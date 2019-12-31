@@ -54,7 +54,7 @@ There are some major applications to the getDTeval package:
 **1). Combining programmatic coding designs with data.table's efficiency. Better utilizing get() and eval() without the trade-offs in performance.**
 
 This is a benchmarking experiment on the snack.dat from formulaic package. The result shows the reduction in running time using getDTeval over the original statement.
-```{r benchmark.getDTeval_example}
+```{r benchmark.getDTeval_example, eval=FALSE, include=FALSE}
 the.statement <- "dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), eval(region.name))]"
 
 benchmark.getDTeval(the.statement = the.statement)
@@ -66,7 +66,7 @@ In data.table's cacluations, eval() within a .() calculation in the j step is no
 
 However, using getDTeval allows this to work:
 
-```{r getDTeval_example1}
+```{r getDTeval_example1, eval=FALSE, include=FALSE}
 getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
 ```
 

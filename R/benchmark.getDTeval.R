@@ -13,40 +13,76 @@
 #' @import microbenchmark
 #'
 #' @export
-benchmark.getDTeval <- function(the.statement, times = 30, seed = 47, envir = .GlobalEnv, ...){
-  "." <- NULL
-  "category" <- NULL
-  "seconds" <- NULL
+benchmark.getDTeval <-
+  function(the.statement,
+           times = 30,
+           seed = 47,
+           envir = .GlobalEnv,
+           ...) {
+    "." <- NULL
+    "category" <- NULL
+    "seconds" <- NULL
 
-  set.seed(seed = seed)
+    set.seed(seed = seed)
 
-  if(!is.character(the.statement) & !is.expression(x = the.statement)){
-    return("Error:  the.statement must be a character or expression.")
+    if (!is.character(the.statement) &
+        !is.expression(x = the.statement)) {
+      return("Error:  the.statement must be a character or expression.")
+    }
+
+    translated.statement <-
+      getDTeval(the.statement = the.statement,
+                return.as = "code",
+                envir = envir)
+
+    times.translated <-
+      data.table::as.data.table(microbenchmark::microbenchmark(eval(parse(text = translated.statement)), times = times))
+    times.translated[, category := "optimized DT statement"]
+
+
+    times.dt <-
+      data.table::as.data.table(microbenchmark::microbenchmark(eval(parse(text = the.statement)), times = times))
+    times.dt[, category := "original statement"]
+
+    times.getDTeval <-
+      data.table::as.data.table(microbenchmark::microbenchmark(
+        getDTeval(
+          the.statement = the.statement,
+          return.as = "result",
+          envir = envir
+        ),
+        times = times
+      ))
+    times.getDTeval[, category := "getDTeval"]
+
+
+    res <-
+      rbindlist(l = list(times.translated, times.dt, times.getDTeval),
+                fill = TRUE)
+    res[, seconds := times / (10 ^ 9)]
+
+    the.tab <-
+      res[, .(metric = names(summary(seconds)), seconds = summary(seconds)), keyby = "category"]
+
+    the.summary <-
+      data.table::dcast.data.table(data = the.tab,
+                                   formula = category ~ metric,
+                                   value.var = "seconds")
+
+    setcolorder(
+      x = the.summary,
+      neworder = c(
+        "category",
+        "Min.",
+        "1st Qu.",
+        "Median",
+        "Mean",
+        "3rd Qu.",
+        "Max."
+      )
+    )
+
+    setorderv(x = the.summary, cols = "Mean")
+
+    return(the.summary)
   }
-
-  translated.statement <- getDTeval(the.statement = the.statement, return.as = "code", envir = envir)
-
-  times.translated <- data.table::as.data.table(microbenchmark::microbenchmark(eval(parse(text = translated.statement)), times = times))
-  times.translated[, category := "optimized DT statement"]
-
-
-  times.dt <- data.table::as.data.table(microbenchmark::microbenchmark(eval(parse(text = the.statement)), times = times))
-  times.dt[, category := "original statement"]
-
-  times.getDTeval <- data.table::as.data.table(microbenchmark::microbenchmark(getDTeval(the.statement = the.statement, return.as = "result", envir = envir), times = times))
-  times.getDTeval[, category := "getDTeval"]
-
-
-  res <- rbindlist(l = list(times.translated, times.dt, times.getDTeval), fill = TRUE)
-  res[, seconds := times / (10^9)]
-
-  the.tab <- res[, .(metric = names(summary(seconds)), seconds = summary(seconds)), keyby = "category"]
-
-  the.summary <- data.table::dcast.data.table(data = the.tab, formula = category ~ metric, value.var = "seconds")
-
-  setcolorder(x = the.summary, neworder = c("category", "Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max."))
-
-  setorderv(x = the.summary, cols = "Mean")
-
-  return(the.summary)
-}

@@ -6,11 +6,13 @@
 #' @param beginning.index TBD
 #' @param ... additional arguments to be passed.
 
-function.ending.point <- function(all.chars, beginning.index, ...){
+function.ending.point <- function(all.chars, beginning.index, ...) {
   len <- length(all.chars)
   open.parens <- cumsum(x = all.chars[beginning.index:len] == "(")
   closed.parens <- cumsum(x = all.chars[beginning.index:len] == ")")
 
-  ending.index <- beginning.index - 1 + min(which(open.parens > 0 & open.parens == closed.parens))
+  ending.index <-
+    beginning.index - 1 + min(which(open.parens > 0 &
+                                      open.parens == closed.parens))
   return(ending.index)
 }
