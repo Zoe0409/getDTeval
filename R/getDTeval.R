@@ -59,16 +59,14 @@ getDTeval <-
           translate.fn.calls(
             the.statement = the.statement,
             function.name = pattern.get,
-            envir = envir,
-            ...
+            envir = envir
           )
 
         the.statement <-
           translate.fn.calls(
             the.statement = the.statement,
             function.name = pattern.eval,
-            envir = envir,
-            ...
+            envir = envir
           )
       }
     }
