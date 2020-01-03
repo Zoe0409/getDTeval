@@ -18,8 +18,6 @@ Using the `get()` and `eval()` functions allows for more programmatic coding des
 
  - **benchmark.getDTeval** performs a benchmarking experiment for data.table coding statements that use `get()` or `eval()` for programmatic designs.  The a) original statement is compared to b) passing the original statement through getDTeval and also to c) an optimized coding statement.  The results can demonstrate the overall improvement of using the coding translations offered by `getDTeval::getDTeval()`.
 
- - **benchmark.getDTeval** performs a benchmarking experiment for data.table coding statements that use `get()` or `eval()` for programmatic designs.  The a) original statement is compared to b) passing the original statement through getDTeval and also to c) an optimized coding statement.  The results can demonstrate the overall improvement of using the coding translations offered by `getDTeval::getDTeval()`.
-
  - **getDTeval** offers a method of fully translating coding statements into an optimized coding statement.
 
 ## Applications and benefits ##
