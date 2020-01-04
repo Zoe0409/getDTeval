@@ -60,7 +60,7 @@ the.statement <- "dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.
 benchmark.getDTeval(the.statement = the.statement)
 ```
 
-**2). Expanding on the use of eval() in data.table's calculations.** 
+**2). Expanding on the use of `eval()` in data.table's calculations.** 
 
 In data.table's cacluations, `eval()` within a `.()` calculation in the j step is not allowed. For example, if we try to run `snack.dat[, .(eval(mean.age.name) = mean(get(age.name)))]`, then the error message would be `Error: unexpected '=' in "snack.dat[, .(eval(mean.age.name) ="`
 
@@ -70,7 +70,7 @@ However, using getDTeval allows this to work:
 getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
 ```
 
-**3). Expanding on the use of eval() in dplyr code.** 
+**3). Expanding on the use of `eval()` in dplyr code.** 
 
 `eval()` steps in dplyr code is not allowed. For example, if we try to run `snack.dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))`, then the error message would be `Error: unexpected '=' in "snack.dat %>% summarize(eval(mean.age.name) ="`
 
