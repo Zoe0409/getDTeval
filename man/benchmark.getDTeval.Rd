@@ -7,8 +7,13 @@
 getDTeval::getDTeval
 }
 \usage{
-benchmark.getDTeval(the.statement, times = 30, seed = 47,
-  envir = .GlobalEnv, ...)
+benchmark.getDTeval(
+  the.statement,
+  times = 30,
+  seed = 47,
+  envir = .GlobalEnv,
+  ...
+)
 }
 \arguments{
 \item{the.statement}{a character value expressing a data.table calculation, such as \code{dt[Age < 50, .(mean(Income)), by = "Region"]}. When the.statement includes variables that are called by reference to a naming constant using get() or eval(), then these statements are translated into the names of the variables for substantial improvements in speed.}
