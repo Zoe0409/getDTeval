@@ -1,13 +1,16 @@
 ---
-title: "Introduction to getDTeval"
+title: "Introductio-to-getDTeval"
 output: rmarkdown::html_vignette
+author: 'Authors: David Shilane, Caffrey Lee, Zoe Huang, Anderson Nelson'
+date: "`r Sys.Date()`"
 vignette: >
   %\VignetteIndexEntry{Introduction to getDTeval}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
