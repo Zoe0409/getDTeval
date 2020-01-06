@@ -38,7 +38,7 @@ Import the data from formulaic package:
 dat = formulaic::snack.dat
 ```
 
-The dat contains 25 features
+The dat contains 25 features of different types: numeric and character.
 
 ```r 
 names(dat)
@@ -90,7 +90,7 @@ benchmark.getDTeval(the.statement = the.statement)
 
 **Use cases of getDTeval function**
 
-1. returning the translated coding statement:
+1. Returning the translated coding statement:
 
 ```r
 the.statement <- "dat[get(gender.name) == 'Female', mean(get(age.name)), keyby = region.name]"
@@ -99,7 +99,7 @@ getDTeval(the.statement = the.statement, return.as = "code")
 [1] "dat[Gender == 'Female', mean(Age), keyby = region.name]"
 ```
 
-2. returning the calculation result:
+2. Returning the calculation result:
 
 ```r
 getDTeval(the.statement = the.statement, return.as = "result")
@@ -111,7 +111,7 @@ getDTeval(the.statement = the.statement, return.as = "result")
 4:      West 54.70430
 ```
 
-3. returning the a list of the calculation result and the code:
+3. Returning the a list of the calculation result and the code:
 
 ```r
 getDTeval(the.statement = the.statement, return.as = "all")
