@@ -57,12 +57,14 @@ getDTeval(the.statement = the.statement, return.as = "code")
 2. returning the calculation result:
 
 ```{r getDTeval2}
+dat = as.data.table(dat)
 getDTeval(the.statement = the.statement, return.as = "result")
 ``` 
 
 3. returning the a list of the calculation result and the code:
 
 ```{r getDTeval3}
+dat = as.data.table(dat)
 getDTeval(the.statement = the.statement, return.as = "all")
 ``` 
 
