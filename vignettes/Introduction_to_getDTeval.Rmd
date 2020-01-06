@@ -71,7 +71,7 @@ dat[, .(eval(mean.age.name) = mean(get(age.name)))]
 
 However, using getDTeval allows this to work:
 
-```{r getDTeval_example1}
+```{r getDTeval_example1, eval=FALSE}
 getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
 ```
 
