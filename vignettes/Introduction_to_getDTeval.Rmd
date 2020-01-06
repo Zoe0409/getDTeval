@@ -68,7 +68,6 @@ In data.table's cacluations, `eval()` within a `.()` calculation in the j step i
 dat[, .(eval(mean.age.name) = mean(get(age.name)))]
 ```
 
-
 However, using getDTeval allows this to work:
 
 ```{r getDTeval_example1}
