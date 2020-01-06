@@ -80,28 +80,51 @@ gender.name = "Gender"
 region.name = "Region"
 ```
 
-**use case of benchmark.getDTeval function**
+**Use cases of benchmark.getDTeval function**
 
 ```r
-sample.dat <- dat[sample(x = 1:.N, size = 10^7, replace = TRUE)]
+sample.dat <- dat[sample(x = 1:.N, size = 10^6, replace = TRUE)]
 the.statement <- "sample.dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), region.name)]"
 benchmark.getDTeval(the.statement = the.statement)
 ```
 
-**use case of getDTeval function**
+**Use cases of getDTeval function**
+
+1. returning the translated coding statement:
 
 ```r
-getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
+the.statement <- "dat[get(gender.name) == 'Female', mean(get(age.name)), keyby = region.name]"
+getDTeval(the.statement = the.statement, return.as = "code")
 
-   `Mean Age`
-1:     55.201
+[1] "dat[Gender == 'Female', mean(Age), keyby = region.name]"
 ```
 
-```r
-getDTeval(the.statement = "dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))")
+2. returning the calculation result:
 
-  `Mean Age`
-1     55.201
+```r
+getDTeval(the.statement = the.statement, return.as = "result")
+
+      Region       V1
+1:   Midwest 54.96774
+2: Northeast 55.90385
+3:     South 55.45205
+4:      West 54.70430
+```
+
+3. returning the a list of the calculation result and the code:
+
+```r
+getDTeval(the.statement = the.statement, return.as = "all")
+
+$result
+      Region       V1
+1:   Midwest 54.96774
+2: Northeast 55.90385
+3:     South 55.45205
+4:      West 54.70430
+
+$code
+[1] "dat[Gender == 'Female', mean(Age), keyby = region.name]"
 ```
 
 Please check out the vignettes file to see more examples and details.

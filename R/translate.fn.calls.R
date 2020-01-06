@@ -31,7 +31,7 @@ translate.fn.calls <-
     if (len > 0) {
       for (i in 1:length(the.begin)) {
         the.end <-
-          function.ending.point(all.chars = all.chars, beginning.index = the.begin[i], ...)
+          function.ending.point(all.chars = all.chars, beginning.index = the.begin[i])
         the.call <-
           paste(all.chars[the.begin[i]:the.end], collapse = "")
         arg <-
