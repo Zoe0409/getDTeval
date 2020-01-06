@@ -16,13 +16,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
 ```{r library, include=FALSE}
 library(formulaic)
 library(data.table)
@@ -69,7 +62,12 @@ benchmark.getDTeval(the.statement = the.statement)
 
 **2). Expanding on the use of `eval()` in data.table's calculations.** 
 
-In data.table's cacluations, `eval()` within a `.()` calculation in the j step is not allowed. For example, if we try to run `snack.dat[, .(eval(mean.age.name) = mean(get(age.name)))]`, then the error message would be `Error: unexpected '=' in "snack.dat[, .(eval(mean.age.name) ="`
+In data.table's cacluations, `eval()` within a `.()` calculation in the j step is not allowed. For example, if we try to run `dat[, .(eval(mean.age.name) = mean(get(age.name)))]`, then the error message would be `Error: unexpected '=' in "dat[, .(eval(mean.age.name) ="`
+
+```{r getDTeval_example1_with_error, error = TRUE, purl = FALSE}
+dat[, .(eval(mean.age.name) = mean(get(age.name)))]
+```
+
 
 However, using getDTeval allows this to work:
 
@@ -79,7 +77,11 @@ getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
 
 **3). Expanding on the use of `eval()` in dplyr code.** 
 
-`eval()` steps in dplyr code is not allowed. For example, if we try to run `snack.dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))`, then the error message would be `Error: unexpected '=' in "snack.dat %>% summarize(eval(mean.age.name) ="`
+`eval()` steps in dplyr code is not allowed. For example, if we try to run `dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))`, then the error message would be `Error: unexpected '=' in "dat %>% summarize(eval(mean.age.name) ="`
+
+```{r getDTeval_example2_with_error, error = TRUE, purl = FALSE}
+dat %>% summarize(eval(mean.age.name) = mean(get(age.name)))
+```
 
 However, using getDTeval allows this to work:
 
