@@ -37,7 +37,7 @@ benchmark.getDTeval <-
 
     times.translated <-
       data.table::as.data.table(microbenchmark::microbenchmark(eval(parse(text = translated.statement)), times = times))
-    times.translated[, category := "optimized DT statement"]
+    times.translated[, category := "optimized statement"]
 
 
     times.dt <-
