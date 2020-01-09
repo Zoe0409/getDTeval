@@ -86,7 +86,13 @@ region.name = "Region"
 sample.dat <- dat[sample(x = 1:.N, size = 10^6, replace = TRUE)]
 the.statement <- "sample.dat[get(age.name) > 65, .(mean_awareness = mean(get(awareness.name))), keyby = c(eval(gender.name), region.name)]"
 benchmark.getDTeval(the.statement = the.statement)
+
+category                   Min.        1st Qu.     Median      Mean        3rd Qu.     Max.
+getDTeval	            0.04582527	0.05954336	0.07194444	0.09330247	0.1003876	0.4570584
+optimized statement	   0.04378177	0.06732308	0.07925487	0.10189325	0.1004987	0.3444931
+original statement	   0.13019905	0.17070118	0.18737796	0.20195735	0.2160447	0.4447632
 ```
+The result shows the reduction in running time using **getDTeval** over the original statement.
 
 **Use cases of getDTeval function**
 

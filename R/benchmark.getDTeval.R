@@ -22,6 +22,7 @@ benchmark.getDTeval <-
     "." <- NULL
     "category" <- NULL
     "seconds" <- NULL
+    "time" <- NULL
 
     set.seed(seed = seed)
 
@@ -59,7 +60,7 @@ benchmark.getDTeval <-
     res <-
       rbindlist(l = list(times.translated, times.dt, times.getDTeval),
                 fill = TRUE)
-    res[, seconds := times / (10 ^ 9)]
+    res[, seconds := time / (10 ^ 9)]
 
     the.tab <-
       res[, .(metric = names(summary(seconds)), seconds = summary(seconds)), keyby = "category"]

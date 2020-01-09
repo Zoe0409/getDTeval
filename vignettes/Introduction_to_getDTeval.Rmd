@@ -28,8 +28,8 @@ dat = formulaic::snack.dat
 ```
 
 ```{r constant,echo=FALSE}
-mean.age.name = "Mean Age"
 age.name = "Age"
+mean.age.name = sprintf("Mean %s", age.name)
 awareness.name = "Awareness"
 gender.name = "Gender"
 region.name = "Region"
