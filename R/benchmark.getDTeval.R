@@ -19,6 +19,7 @@ benchmark.getDTeval <-
            seed = 47,
            envir = .GlobalEnv,
            ...) {
+
     "." <- NULL
     "category" <- NULL
     "seconds" <- NULL
@@ -37,29 +38,37 @@ benchmark.getDTeval <-
                 envir = envir)
 
     times.translated <-
-      data.table::as.data.table(microbenchmark::microbenchmark(eval(parse(text = translated.statement)), times = times))
+      tryCatch(data.table::as.data.table(microbenchmark::microbenchmark(
+        eval(parse(text = translated.statement)), times = times)),
+        error = function(cond)data.table::data.table(expr = NA, time = NA))
+
     times.translated[, category := "optimized statement"]
 
 
     times.dt <-
-      data.table::as.data.table(microbenchmark::microbenchmark(eval(parse(text = the.statement)), times = times))
+      tryCatch(data.table::as.data.table(microbenchmark::microbenchmark(
+        eval(parse(text = the.statement)), times = times)),
+        error = function(cond)data.table::data.table(expr = NA, time = NA))
+
     times.dt[, category := "original statement"]
 
+
     times.getDTeval <-
-      data.table::as.data.table(microbenchmark::microbenchmark(
+      tryCatch(data.table::as.data.table(microbenchmark::microbenchmark(
         getDTeval(
           the.statement = the.statement,
           return.as = "result",
           envir = envir
         ),
         times = times
-      ))
+      )), error = function(cond)data.table::data.table(expr = NA, time = NA))
     times.getDTeval[, category := "getDTeval"]
 
 
     res <-
       rbindlist(l = list(times.translated, times.dt, times.getDTeval),
                 fill = TRUE)
+
     res[, seconds := time / (10 ^ 9)]
 
     the.tab <-
@@ -70,20 +79,19 @@ benchmark.getDTeval <-
                                    formula = category ~ metric,
                                    value.var = "seconds")
 
-    setcolorder(
-      x = the.summary,
-      neworder = c(
-        "category",
-        "Min.",
-        "1st Qu.",
-        "Median",
-        "Mean",
-        "3rd Qu.",
-        "Max."
-      )
-    )
+    the.summary = the.summary[,.SD,.SDcols = c(
+      "category",
+      "Min.",
+      "1st Qu.",
+      "Median",
+      "Mean",
+      "3rd Qu.",
+      "Max."
+    )]
 
-    setorderv(x = the.summary, cols = "Mean")
+
+
+    setorderv(x = the.summary, cols = "Mean", na.last = TRUE)
 
     return(the.summary)
   }
