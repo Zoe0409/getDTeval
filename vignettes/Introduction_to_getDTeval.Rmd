@@ -47,6 +47,12 @@ Using the `get()` and `eval()` functions allows for more programmatic coding des
 
  - **benchmark.getDTeval** performs a benchmarking experiment for data.table coding statements that use `get()` or `eval()` for programmatic designs.  The a) original statement is compared to b) passing the original statement through getDTeval and also to c) an optimized coding statement.  The results can demonstrate the overall improvement of using the coding translations offered by `getDTeval::getDTeval()`.
 
+```{r benchmark.getDTeval}
+dat = as.data.table(dat)
+the.statement <- "dat[get(gender.name) == 'Female', mean(get(age.name)), keyby = region.name]"
+benchmark.getDTeval(the.statement = the.statement)
+```
+
  - **getDTeval** offers a method of translating coding statements into more efficient versions for improved runtime performance.
 
 **1. Returning the translated coding statement:**
@@ -94,11 +100,18 @@ In data.table's cacluations, `eval()` within a `.()` calculation in the j step i
 dat[, .(eval(mean.age.name) = mean(get(age.name)))]
 ```
 
-However, using **getDTeval** allows this to work:
+However, getDTeval's translation creates a perfectly valid coding statement:
 
-```{r getDTeval_example1, eval=FALSE}
+```{r getDTeval_example1}
 dat = as.data.table(dat)
 getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
+```
+
+In this case, the benchmark.getDTeval function would benchmark the performance between passing the original statement through getDTeval and an optimized coding statement:
+
+```{r getDTeval_example1_benchmark.getDTeval}
+dat = as.data.table(dat)
+benchmark.getDTeval(the.statement = "dat[, .(eval(mean.age.name) = mean(get(age.name)))]")
 ```
 
 **3). Expanding on the use of `eval()` in dplyr code.**
@@ -115,8 +128,14 @@ If we try to run `df %>% summarize(eval(mean.age.name) = mean(get(age.name)))`, 
 df %>% summarize(eval(mean.age.name) = mean(get(age.name)))
 ```
 
-However, using **getDTeval** allows this to work.
+However, using **getDTeval** allows this to work:
 
 ```{r getDTeval_example2}
 getDTeval(the.statement = "df %>% summarize(eval(mean.age.name) = mean(get(age.name)))")
+```
+
+Similar to the last example, the benchmark.getDTeval function would benchmark the performance between passing the original statement through getDTeval and an optimized coding statement:
+
+```{r getDTeval_example2_benchmark.getDTeval}
+benchmark.getDTeval(the.statement = "df %>% summarize(eval(mean.age.name) = mean(get(age.name)))")
 ```
