@@ -6,7 +6,7 @@
 #' @param times The number of iterations to run the benchmarking experiment.
 #' @param seed an integer value specifying the seed of the pseudorandom number generator.
 #' @param envir The environment in which the calculation takes place, with the global environment .GlobalEnv set as the default.
-#' @param ... additional arguments to be passed.
+#' @param ... Not used at this time.
 #'
 #' @source getDTeval::getDTeval
 #' @import data.table

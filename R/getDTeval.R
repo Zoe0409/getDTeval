@@ -6,7 +6,7 @@
 #' @param return.as a character value stating what should be returned.  When return.as = "result", the calculation is evaluated.  When return.as = "code", then the translated coding statement is provided. When return.as = "all", then a list is returned that includes both the result and the code.
 #' @param eval.type a character value stating whether the coding statement should be evaluated in its current form (eval.type = "as.is") or have its called to get() and eval() translated (eval.type = "optimized", the default setting).
 #' @param envir The environment in which the calculation takes place, with the global environment .GlobalEnv set as the default.
-#' @param ... additional arguments to be passed.
+#' @param ... Not used at this time.
 #'
 #' @source getDTeval::translate.fn.calls
 #' @export

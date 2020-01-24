@@ -4,7 +4,7 @@
 #'
 #' @param all.chars TBD
 #' @param beginning.index TBD
-#' @param ... additional arguments to be passed.
+#' @param ... Not used at this time.
 
 function.ending.point <- function(all.chars, beginning.index, ...) {
   len <- length(all.chars)
